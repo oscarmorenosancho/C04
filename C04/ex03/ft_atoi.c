@@ -24,7 +24,7 @@ int ft_isnumeric(char c)
 {
     int ret;
 
-    ret = (c >= '0' || c <= '1');
+    ret = (c >= '0' || c <= '9');
     return (ret);
 }
 
@@ -59,7 +59,7 @@ int ft_atoi(char *str)
     while (ft_isnumeric(*p))
     {
         ret *= 10;
-        ret += *p;
+        ret += *p - '0';
         p++;
     }
     ret *= s;
