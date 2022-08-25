@@ -12,12 +12,17 @@
 
 #include <unistd.h>
 
-void	ft_print_exception(char *base_code, int base)
+int ft_isspace(char c)
 {
-	write (1, "-2147483648", 11);
+    int ret;
+
+    ret = (c == ' ' || c == '\n' || c == '\t');
+    ret = ret || (c == '\v' || c == '\f' || c == '\r');
+
+    return (ret);
 }
 
-char	ft_get_last_digit(int *n, int base)
+char	ft_get_last_digit(long int *n, int base)
 {
 	char	ls;
 
@@ -26,13 +31,13 @@ char	ft_get_last_digit(int *n, int base)
 	return (ls);
 }
 
-void	ft_putposnbr(int nb, char *base_code, int base)
+void	ft_putposnbr(long int nb, char *base_code, int base)
 {
-	int		i;
-	char	store[11];
-	int		restant_digits;
-	int		s;
-    char    c;
+	int			i;
+	char		store[11];
+	long int	restant_digits;
+	int			s;
+    char    	c;
 
 	restant_digits = nb;
 	i = 0;
@@ -53,16 +58,11 @@ void	ft_putposnbr(int nb, char *base_code, int base)
 	}
 }
 
-void	ft_putnbr(int nb, char *base_code, int base)
+void	ft_putnbr(long int nb, char *base_code, int base)
 {
-	char	neg;
-	int		aux;
+	char		neg;
+	long int	aux;
 
-	if (nb == (signed int)0x80000000)
-	{
-		ft_print_exception(base_code, base);
-		return ;
-	}
 	neg = (nb < 0);
 	aux = nb;
 	if (neg)
@@ -87,7 +87,7 @@ void ft_putnbr_base(int nbr, char *base)
     i = 0;
     while (i < base_n)
     {
-        if (base[i]=='+' || base[i]=='-')
+        if (base[i]=='+' || base[i]=='-' || ft_isspace(base[i]))
             return;
         j = i + 1;
         while (j < base_n)
@@ -98,5 +98,5 @@ void ft_putnbr_base(int nbr, char *base)
         }
         i++;
     }
-    ft_putnbr(nbr, base, base_n)
+    ft_putnbr((long int) nbr, base, base_n)
 }

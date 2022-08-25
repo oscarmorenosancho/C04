@@ -92,12 +92,12 @@ int ft_atoi_base(char *str, char *base)
     base_n = 0;
     while (base[base_n])
         base_n++;
-    if (base_n<2)
+    if (base_n<2)(ase_n++)
         return (0);
     i = 0;
     while (i < base_n)
     {
-        if (base[i]=='+' || base[i]=='-')
+        if (base[i]=='+' || base[i]=='-' || ft_isspace(base[i]))
             return(0);
         j = i + 1;
         while (j < base_n)
