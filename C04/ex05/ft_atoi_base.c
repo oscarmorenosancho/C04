@@ -20,15 +20,15 @@ int ft_isspace(char c)
     return (ret);
 }
 
-int ft_is_this_base(char c, char *base, int *digit_value, int base_len)
+int ft_is_this_base(char c, char *base, int *digit_value, unsigned int base_n)
 {
-    int ret;
-    int i;
-    int found;
+    int             ret;
+    unsigned int    i;
+    int             found;
 
     i = 0;
     found = 0;
-    while (i < base_len && ! found)
+    while (i < base_n && ! found)
     {
         if (base[i] == c)
             found = 1;
@@ -61,25 +61,21 @@ int ft_take_signs(char **p)
     return (1);
 }
 
-int ft_atoi_m(char *str, char *base)
+int ft_atoi_m(char *str, char *base, unsigned int base_n)
 {
     int     ret;
     int     s;
     char    *p;
-    int     base_len;
     int     digit_value;
 
-    base_len = 0;
-    while (base[base_len])
-        base_len++;
     *p = str;
     ret = 0;
     while (*p && ft_isspace(*p))
         p++;
     s = ft_take_signs(&p);
-    while (ft_is_this_base(*p, base, &digit_value, base_len))
+    while (ft_is_this_base(*p, base, &digit_value, base_n))
     {
-        ret *= base_len;
+        ret *= base_n;
         ret += digit_value;
         p++;
     }
@@ -89,8 +85,28 @@ int ft_atoi_m(char *str, char *base)
 
 int ft_atoi_base(char *str, char *base)
 {
-    //Check base is válid
-
-
-    return (ft_atoi_m(str, base));
+    unsigned int    base_n;
+    unsigned int    i;
+    unsigned int    j;
+ 
+    base_n = 0;
+    while (base[base_n])
+        base_n++;
+    if (base_n<2)
+        return (0);
+    i = 0;
+    while (i < base_n)
+    {
+        if (base[i]=='+' || base[i]=='-')
+            return(0);
+        j = i + 1;
+        while (j < base_n)
+        {
+            if (base[i] == base[j])
+                return (0);
+            j++;
+        }
+        i++;
+    }
+    return (ft_atoi_m(str, base, base_n));
 }

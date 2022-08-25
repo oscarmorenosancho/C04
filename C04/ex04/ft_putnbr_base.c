@@ -75,12 +75,28 @@ void	ft_putnbr(int nb, char *base_code, int base)
 
 void ft_putnbr_base(int nbr, char *base)
 {
-    int     base_n;
+    int     		base_n;
+    unsigned int    i;
+    unsigned int    j;
 
     base_n = 0;
     while (base[base_n])
         base_n++;
-    /* check if base is valid */
-
+    if (base_n<2)
+        return;
+    i = 0;
+    while (i < base_n)
+    {
+        if (base[i]=='+' || base[i]=='-')
+            return;
+        j = i + 1;
+        while (j < base_n)
+        {
+            if (base[i] == base[j])
+                return;
+            j++;
+        }
+        i++;
+    }
     ft_putnbr(nbr, base, base_n)
 }
