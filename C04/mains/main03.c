@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main03.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/25 15:51:40 by omoreno-          #+#    #+#             */
+/*   Updated: 2022/08/25 16:00:23 by omoreno-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 int ft_atoi(char *str);
 
@@ -10,8 +23,8 @@ int main(int argc, char **argv)
     int     nbr2;
 
     if (argc > 1)
-        strcpy(argv[1], str);
-    printf("String que entra a ft_atoi y atoi: %d\n", str);
+        strcpy(str, argv[1]);
+    printf("String que entra a ft_atoi y atoi: %s\n", str);
     nbr1 = ft_atoi(str);
     nbr2 = atoi(str);
     printf("Valor devuelto por ft_atoi: %d\n", nbr1);
