@@ -6,21 +6,11 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 19:19:43 by omoreno-          #+#    #+#             */
-/*   Updated: 2022/08/14 18:21:50 by omoreno-         ###   ########.fr       */
+/*   Updated: 2022/08/29 17:34:36 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-
-int ft_isspace(char c)
-{
-    int ret;
-
-    ret = (c == ' ' || c == '\n' || c == '\t');
-    ret = ret || (c == '\v' || c == '\f' || c == '\r');
-
-    return (ret);
-}
 
 char	ft_get_last_digit(long int *n, int base)
 {
@@ -34,10 +24,10 @@ char	ft_get_last_digit(long int *n, int base)
 void	ft_putposnbr(long int nb, char *base_code, int base)
 {
 	int			i;
-	char		store[11];
+	char		store[100];
 	long int	restant_digits;
 	int			s;
-    char    	c;
+	char		c;
 
 	restant_digits = nb;
 	i = 0;
@@ -52,8 +42,8 @@ void	ft_putposnbr(long int nb, char *base_code, int base)
 	i = s;
 	while (i >= 0)
 	{
-        c = base_code[store[i]];
-        write(1, &c, 1);
+		c = base_code[(unsigned int)store[i]];
+		write(1, &c, 1);
 		i--;
 	}
 }
@@ -68,35 +58,43 @@ void	ft_putnbr(long int nb, char *base_code, int base)
 	if (neg)
 	{
 		aux = -aux;
-        write(1, "-", 1);
+		write(1, "-", 1);
 	}
 	ft_putposnbr (aux, base_code, base);
 }
 
-void ft_putnbr_base(int nbr, char *base)
+unsigned int	ft_get_base_nb(char *base)
 {
-    int     		base_n;
-    unsigned int    i;
-    unsigned int    j;
+	unsigned int	base_n;
 
-    base_n = 0;
-    while (base[base_n])
-        base_n++;
-    if (base_n<2)
-        return;
-    i = 0;
-    while (i < base_n)
-    {
-        if (base[i]=='+' || base[i]=='-' || ft_isspace(base[i]))
-            return;
-        j = i + 1;
-        while (j < base_n)
-        {
-            if (base[i] == base[j])
-                return;
-            j++;
-        }
-        i++;
-    }
-    ft_putnbr((long int) nbr, base, base_n)
+	base_n = 0;
+	while (base[base_n])
+		base_n++;
+	return (base_n);
+}
+
+void	ft_putnbr_base(int nbr, char *base)
+{
+	unsigned int	base_n;
+	unsigned int	i;
+	unsigned int	j;
+
+	base_n = ft_get_base_nb(base);
+	if (base_n < 2)
+		return ;
+	i = 0;
+	while (i < base_n)
+	{
+		if (base[i] == '+' || base[i] == '-' || base[i] <= ' ')
+			return ;
+		j = i + 1;
+		while (j < base_n)
+		{
+			if (base[i] == base[j])
+				return ;
+			j++;
+		}
+		i++;
+	}
+	ft_putnbr((long int) nbr, base, base_n);
 }

@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 09:35:56 by omoreno-          #+#    #+#             */
-/*   Updated: 2022/08/25 17:12:40 by omoreno-         ###   ########.fr       */
+/*   Updated: 2022/08/29 20:34:35 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_isnumeric(char c)
 {
 	int	ret;
 
-	ret = (c >= '0' || c <= '9');
+	ret = (c >= '0' && c <= '9');
 	return (ret);
 }
 
@@ -34,7 +34,7 @@ int	ft_take_signs(char **p)
 	minus_counter = 0;
 	while (**p == '+' || **p == '-')
 	{
-	if (**p == '-')
+		if (**p == '-')
 			minus_counter++;
 	(*p)++;
 	}
